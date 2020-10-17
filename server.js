@@ -1,20 +1,33 @@
-var express = require('express')
-var server = express()
-var bodyParser = require('body-parser')
+var express = require('express');
+var server = express();
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+const uri = "mongodb+srv://admin:" + process.env.Mongo_Admin_PW + "@dayinthelife-dev.ozz3z.mongodb.net/testdb?retryWrites=true&w=majority";
 var port = process.env.PORT || 4201;
+var dayRoutes = require('./api/day/day.route');
 
-server.use(bodyParser.urlencoded({extended:true}));
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-server.listen(port, function(){
-  console.log('Server is running my server on PORT: ' + port)
-})
+
+
+//connect to the Database
+try {
+  mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+} catch (e) {
+  console.log(e);
+}
+
+server.listen(port, function () {
+  console.log('Server is running my server on PORT: ' + port);
+});
 
 //test endpoint to see if server is up
-server.get('/ping', function(request, response){
-  console.log('PING')
-  response.send({ping: 'ping'})
-})
+server.get('/ping', function (request, response) {
+  console.log('PING');
+  response.send({ ping: 'ping' });
+});
+
 server.use(function (req, res, next) {
 
   // Website you wish to allow to connect
@@ -34,4 +47,6 @@ server.use(function (req, res, next) {
   next();
 });
 
-module.export = server
+server.use('/day', dayRoutes);
+
+module.export = server;
