@@ -15,7 +15,7 @@ exports.post = function (req,res) {
   const day = new DayModal({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    summmary: req.body.summary
+    summary: req.body.summary
   })
   day.save()
   .then(result => {
