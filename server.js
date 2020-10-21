@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 const uri = "mongodb+srv://admin:" + process.env.Mongo_Admin_PW + "@dayinthelife-dev.ozz3z.mongodb.net/testdb?retryWrites=true&w=majority";
 var port = process.env.PORT || 4201;
 var dayRoutes = require('./api/day/day.route');
+var jobOverviewRoutes = require('./api/JobOverview/job-overview.route')
+
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
@@ -48,5 +50,6 @@ server.use(function (req, res, next) {
 });
 
 server.use('/day', dayRoutes);
+server.use('/jobOverview', jobOverviewRoutes);
 
 module.export = server;
