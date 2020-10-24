@@ -11,7 +11,7 @@ exports.get = async function (req, res) {
   }
 }
 
-exports.getId = function (req, res) {
+exports.getById = function (req, res) {
   const id = req.params.id
   JobOverviewModal.findById(id)
     .exec()
@@ -70,5 +70,29 @@ exports.post = function (req, res) {
       else {
         res.status(500).json({ error: err })
       }
+    })
+}
+
+exports.put = function (req, res) {
+  const id = req.params.id
+  var { title, description, salary, location, balance, travel, commute } = req.body
+  const overview = new JobOverviewModal({
+    _id: id,
+    title: title,
+    description: description,
+    salary: salary,
+    location: location,
+    balance: balance,
+    travel: travel,
+    commute: commute
+  })
+  JobOverviewModal.findByIdAndUpdate(id, overview, {new: true},
+    (err, overview)=> {
+      if(err) 
+        return res.status(500).send(err)
+      else{
+        console.log(`Successfully found and updated id ${id}`)
+        return res.status(200).send(overview);
+      } 
     })
 }
