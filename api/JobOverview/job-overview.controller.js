@@ -1,6 +1,9 @@
 var mongoose = require('mongoose')
 var JobOverviewModal = require('./job-overview.modal')
 
+//to avoid deprecation warning
+mongoose.set('useFindAndModify', false);
+
 exports.get = async function (req, res) {
   const jobOverview = await JobOverviewModal.find()
   try {
@@ -86,13 +89,36 @@ exports.put = function (req, res) {
     travel: travel,
     commute: commute
   })
-  JobOverviewModal.findByIdAndUpdate(id, overview, {new: true},
-    (err, overview)=> {
-      if(err) 
-        return res.status(500).send(err)
-      else{
+  JobOverviewModal.findByIdAndUpdate(id, overview, { new: true },
+    (overview) => {
+      if (overview){
         console.log(`Successfully found and updated id ${id}`)
-        return res.status(200).send(overview);
-      } 
+        console.log(overview)
+        res.status(200).send(overview);
+      }
+      else {
+        console.log(`Did not find any matching overview with id ${id}`)
+        res.status(403).json(
+          {
+            Reason: "Did not find any mtching overview with id",
+            string: id
+          })
+      }
+    })
+    .catch(err=> {
+      console.log("In catch callback")
+      if (id.length < 24) {
+        console.log(`Argument passed in must be a single String of 12 bytes or a string of 24 hex characters \n string: ${id} \n length ${id.length}`)
+        res.status(403).json(
+          {
+            Reason: "Argument passed in must be a single  string of 24 hex characters",
+            string: id,
+            stringLength: id.length
+          })
+      }
+      else{
+        console.log(err)
+        res.status(500).send(err)
+      }
     })
 }
