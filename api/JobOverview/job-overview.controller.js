@@ -90,7 +90,7 @@ exports.put = function (req, res) {
     commute: commute
   })
   JobOverviewModal.findByIdAndUpdate(id, overview, { new: true },
-    (overview) => {
+    (err, overview) => {
       if (overview){
         console.log(`Successfully found and updated id ${id}`)
         console.log(overview)
