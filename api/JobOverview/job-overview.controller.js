@@ -106,7 +106,6 @@ exports.put = function (req, res) {
       }
     })
     .catch(err=> {
-      console.log("In catch callback")
       if (id.length < 24) {
         console.log(`Argument passed in must be a single String of 12 bytes or a string of 24 hex characters \n string: ${id} \n length ${id.length}`)
         res.status(403).json(
