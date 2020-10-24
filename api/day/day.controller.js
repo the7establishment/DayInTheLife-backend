@@ -7,7 +7,7 @@ exports.get = async function(req, res){
     res.status(201).send(day)
     console.log(day)
   } catch(e) {
-    res.status(500).send(err)
+    res.status(500).send(e)
   }
 }
 
