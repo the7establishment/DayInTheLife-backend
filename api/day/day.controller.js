@@ -12,15 +12,17 @@ exports.get = async function(req, res){
 }
 
 exports.post = function (req,res) {
+  var { job, company, items} = req.body
   const day = new DayModal({
     _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    summary: req.body.summary
+    job: job,
+    company: company,
+    items: items
   })
   day.save()
   .then(result => {
     console.log(`Day(s) created successfully with the following id ${result._id}`)
-    res.status(201).json({
+    res.status(200).json({
       message: `Day(s) created successfully!`,
       createdDay: result
     })
