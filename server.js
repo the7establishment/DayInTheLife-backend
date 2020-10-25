@@ -7,6 +7,7 @@ var port = process.env.PORT || 4201;
 
 var dayRoutes = require('./api/day/day.route');
 var userRoutes = require('./api/user/user.route');
+var productRoutes = require('./api/product/product.route');
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
@@ -49,5 +50,6 @@ server.use(function (req, res, next) {
 
 server.use('/day', dayRoutes);
 server.use('/user', userRoutes);
+server.use('/product', productRoutes);
 
 module.export = server;
