@@ -49,7 +49,7 @@ exports.post = function (req, res) {
   user.save()
     .then(result => {
       console.log(`User created successfully with the following id ${result._id}`)
-      res.status(200) / json({
+      res.status(200).json({
         message: `User created successfully!`,
         createdUser: result
       })
