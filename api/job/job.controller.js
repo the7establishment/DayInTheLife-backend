@@ -21,6 +21,27 @@ exports.getByKeyword = function(req, res){
   })
 }
 
+exports.getJobDescriptionByOnetCode = function(req, res){
+  var onetCode = req.params.onetCode
+  var location = req.params.location
+  const config = {
+    headers: { Authorization: `Bearer ${process.env.CareerOne_API_Key}`}
+  }
+  axios.get(
+    `https://api.careeronestop.org/v1/jdw/${process.env.CareerOne_UserId}/${onetCode}/${location}/Purpose`,
+    config
+  )
+  .then(function(response){
+    console.log(`Found Job Description for ${onetCode}`)
+    res.status(200).send(response.data)
+  })
+  .catch(err => {
+    console.log(`Could not find job description for ${onetCode}`)
+    console.log(err)
+    res.status(500).send(err)
+  })
+}
+
 exports.getSalariesByOccupationAndLocation = function(req, res){
   var keyword = req.params.keyword
   var location = req.params.location
