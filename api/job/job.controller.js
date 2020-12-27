@@ -28,7 +28,7 @@ exports.getJobDescriptionByOnetCode = function(req, res){
     headers: { Authorization: `Bearer ${process.env.CareerOne_API_Key}`}
   }
   axios.get(
-    `https://api.careeronestop.org/v1/jdw/${process.env.CareerOne_UserId}/${onetCode}/${location}/Purpose`,
+    `https://api.careeronestop.org/v1/jdw/${process.env.CareerOne_UserId}/${onetCode}/${location}/All`,
     config
   )
   .then(function(response){
