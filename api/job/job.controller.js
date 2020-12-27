@@ -21,7 +21,7 @@ exports.getByKeyword = function(req, res){
   })
 }
 
-exports.getJobDescriptionByOnetCode = function(req, res){
+exports.getJobDescriptionByOnetCodeAndLocation = function(req, res){
   var onetCode = req.params.onetCode
   var location = req.params.location
   const config = {
