@@ -51,7 +51,7 @@ exports.getSalariesByOccupationAndLocation = function(req, res){
   )
   .then(function(response){
     console.log(`Found Salary for ${response.data.LocationsList[0].OccupationList[0].Title} in ${location}`)
-    res.status(200).send(response.data)
+    res.status(200).send(response.data.LocationsList)
   })
   .catch(err => {
     console.log(err)
