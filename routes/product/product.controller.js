@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var ProductModal = require('./product.modal')
+var ProductModal = require('./product.model')
 
 exports.get = async function (req, res) {
   const product = await ProductModal.find()
