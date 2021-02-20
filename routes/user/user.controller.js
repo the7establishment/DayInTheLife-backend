@@ -1,9 +1,10 @@
 const { json } = require('body-parser')
 var mongoose = require('mongoose')
-var UserModal = require('./user.modal')
+var uniqid = require('uniqid')
+var UserModel = require('./user.model')
 
 exports.get = async function (req, res) {
-  const user = await UserModal.find()
+  const user = await UserModel.find()
   try {
     res.status(201).send(user)
     console.log(user)
@@ -15,7 +16,7 @@ exports.get = async function (req, res) {
 exports.getById = function (req, res) {
   const id = req.params.userId
   console.log(`Id: ${id} being used`)
-  UserModal.findById(id)
+  UserModel.findOne({userId: id})
     .exec()
     .then(doc => {
       if (doc) {
@@ -32,18 +33,11 @@ exports.getById = function (req, res) {
 }
 
 exports.post = function (req, res) {
-  var { fullName, firstName, lastName, gender, title, timeAt, location, homeTown, image } = req.body
-  const user = new UserModal({
+  var { firstName, lastName, fullName, email, password, gender, country, region, homeCountry, homeRegion} = req.body
+  const user = new UserModel({
     _id: new mongoose.Types.ObjectId(),
-    fullName: fullName,
-    firstName: firstName,
-    lastName: lastName,
-    gender: gender,
-    title: title,
-    timeAt: timeAt,
-    location: location,
-    homeTown: homeTown,
-    image: image
+    userId: uniqid(),
+    ...req.body
   })
 
   user.save()
