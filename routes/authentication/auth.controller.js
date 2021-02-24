@@ -13,7 +13,7 @@ const signup = (req, res) => {
             if(!result) {
                 let newUser = new User({ 
                     _id : new mongoose.Types.ObjectId,
-                    userId : uniqid(),
+                    lookupId : uniqid(),
                     ...req.body
                 });
                 newUser.save()
@@ -21,12 +21,13 @@ const signup = (req, res) => {
                     console.log(`User created successfully with the following id ${user._id}`)
                     res.status(200).json({
                     message: `User created successfully!`,
-                    userId: user.userId
+                    userId: user._id
                     })
                 })
                 .catch(err => {
                     res.status(500).json({
-                    error: err
+                    error: err,
+                    message: 'Service is not available at this time. Please try again later.'
                     })
                 })
             } else {
@@ -38,7 +39,7 @@ const signup = (req, res) => {
 
 const logout = (req, res) => {
     req.logout();
-    res.status(200).json({ msg: 'Logged out' });
+    res.status(200).json({ message: 'Logged out' });
 };
 
 module.exports = {

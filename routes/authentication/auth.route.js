@@ -9,13 +9,12 @@ auth.post('/signup',
     [
         check('firstName')
         .isLength({min: 3})
-        .withMessage('Name must have mininum lenth of 3')
+        .withMessage('Name must have mininum length of 3')
         .trim(),
 
         check('email')
         .isEmail()
-        .withMessage('Invalid email address')
-        .normalizeEmail(),
+        .withMessage('Invalid email address'),
 
         check('password')
         .isLength({ min: 8 })
@@ -39,7 +38,10 @@ auth.post('/signup',
         const hasError = !error.isEmpty();
 
         if (hasError) {
-            res.status(422).json({ error: error.array() });
+            res.status(422).json({ 
+                error: error.array(),
+                message: 'Invalid user info provided.'
+            });
         } else {
             next();
         }

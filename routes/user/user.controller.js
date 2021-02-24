@@ -44,7 +44,7 @@ exports.post = function (req, res) {
       console.log(`User created successfully with the following id ${result._id}`)
       res.status(200).json({
         message: `User created successfully!`,
-        createdUser: result
+        createdUser: result._id
       })
     })
     .catch(err => {
