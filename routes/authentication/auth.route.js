@@ -49,10 +49,7 @@ auth.post('/signup',
     signup
 );
 
-auth.post('/login', passport.authenticate('login', {
-    failureFlash: true
-}),
-login);
+auth.post('/login', login);
 
 auth.get('/logout', logout);
 

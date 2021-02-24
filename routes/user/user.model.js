@@ -34,7 +34,7 @@ var userSchema = mongoose.Schema({
   homeCountry: String,
   homeRegion: String
 })
-/*
+
 userSchema.pre('save', function(done) {
   var user = this;
   if(!user.isModified('password')) {
@@ -50,7 +50,7 @@ userSchema.pre('save', function(done) {
       })
   })
 });
-*/
+
 userSchema.methods.checkPassword = function(guess, actual, done) {
   bcrypt.compare(guess, actual, function(err, isMatch) {
     done(err, isMatch);

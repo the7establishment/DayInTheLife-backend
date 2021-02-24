@@ -21,7 +21,7 @@ module.exports =function() {
                 if (err) { return done(err); }
                 if (!user) {
                     return done(null, false,
-                        { message: 'No user has that username!' });
+                        { message: 'Invalid username or password.' });
                 }
                 user.checkPassword(password, user.password, function(err, isMatch) {
                     if (err) { return done(err); }
@@ -29,7 +29,7 @@ module.exports =function() {
                         return done(null, user);
                     } else {
                         return done(null, false,
-                            { message: 'Invalid password.' })
+                            { message: 'Invalid username or password.' })
                     }
                 })
             })

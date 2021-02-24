@@ -1,10 +1,22 @@
 const User = require('../user/user.model');
 const uniqid = require('uniqid');
 var mongoose = require('mongoose');
+const passport = require('passport');
 
 const login = (req, res) => {
-    return res.status(200).json({ userId: req.user.userId });
-};
+    passport.authenticate('login', function(err, user, info) {
+    if(err) {
+        return res.status(500).json(err);
+    }
+    if (user) {
+        return res.status(200).json({
+            userId: user._id
+        });
+    } else {
+        return res.status(401).json(info);
+    }
+    })(req,res)
+}
 
 const signup = (req, res) => {
     var email = req.body.email;
@@ -32,7 +44,7 @@ const signup = (req, res) => {
                 })
             } else {
                 res.status(422)
-                .json({ errors: ['User with this email already exists'] });
+                .json({ error: 'User with this email already exists' });
             }
         })
 };
