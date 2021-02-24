@@ -1,7 +1,6 @@
 var mongoose = require('mongoose')
 
 var daySchema = new mongoose.Schema({
-  dayId: Number,
   title: String,
   company: String,
   travel: String,

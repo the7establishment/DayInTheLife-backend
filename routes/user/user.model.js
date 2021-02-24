@@ -7,7 +7,7 @@ var noop = function() {};
 
 
 var userSchema = mongoose.Schema({
-  userId: { 
+  lookupId: { 
     type: String,
     required: true
   },

@@ -33,10 +33,9 @@ exports.getById = function (req, res) {
 }
 
 exports.post = function (req, res) {
-  var { firstName, lastName, fullName, email, password, gender, country, region, homeCountry, homeRegion} = req.body
   const user = new UserModel({
     _id: new mongoose.Types.ObjectId(),
-    userId: uniqid(),
+    lookupId: uniqid(),
     ...req.body
   })
 
