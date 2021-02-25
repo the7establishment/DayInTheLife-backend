@@ -44,7 +44,7 @@ const signup = (req, res) => {
                 })
             } else {
                 res.status(422)
-                .json({ error: 'User with this email already exists' });
+                .json({ message: 'User with this email already exists' });
             }
         })
 };
