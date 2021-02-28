@@ -5,6 +5,6 @@ const day_controller = require('./day.controller')
 
 router.get('/', day_controller.get)
 
-router.post('/create', day_controller.post)
+router.post('/', day_controller.post)
 
 module.exports = router

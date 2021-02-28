@@ -15,8 +15,6 @@ exports.post = function (req,res) {
   var body = req.body
   const day = new DayModal({
     _id: new mongoose.Types.ObjectId(),
-    // need id generator here
-    dayId: Math.floor(Math.random() * Math.floor(1000000000)),
     // overview
     title: body.overview.jobTitle,
     company: body.overview.company,

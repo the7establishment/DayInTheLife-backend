@@ -16,11 +16,12 @@ exports.get = async function (req, res) {
 exports.getById = function (req, res) {
   const id = req.params.userId
   console.log(`Id: ${id} being used`)
-  UserModel.findOne({userId: id})
+  UserModel.findOne({_id: id})
     .exec()
     .then(doc => {
       if (doc) {
         console.log(`Found user matching id: ${id}`)
+        doc.password = undefined
         res.status(200).json(doc)
       } else {
         res.status(404).json({ message: `No valid entry found for provided ID: ${id}` })
@@ -33,10 +34,9 @@ exports.getById = function (req, res) {
 }
 
 exports.post = function (req, res) {
-  var { firstName, lastName, fullName, email, password, gender, country, region, homeCountry, homeRegion} = req.body
   const user = new UserModel({
     _id: new mongoose.Types.ObjectId(),
-    userId: uniqid(),
+    lookupId: uniqid(),
     ...req.body
   })
 
@@ -45,7 +45,7 @@ exports.post = function (req, res) {
       console.log(`User created successfully with the following id ${result._id}`)
       res.status(200).json({
         message: `User created successfully!`,
-        createdUser: result
+        createdUser: result._id
       })
     })
     .catch(err => {
