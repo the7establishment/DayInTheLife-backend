@@ -30,9 +30,7 @@ var userSchema = mongoose.Schema({
     enum: ['Male', 'Female', 'Other']
   },
   country: String,
-  region: String,
-  homeCountry: String,
-  homeRegion: String
+  region: String
 })
 
 userSchema.pre('save', function(done) {
