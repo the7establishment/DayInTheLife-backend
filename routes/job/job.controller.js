@@ -1,12 +1,12 @@
-var axios = require('axios');
-var mongoose = require('mongoose');
+const axios = require('axios');
+const mongoose = require('mongoose');
 
 const config = {
   headers: { Authorization: `Bearer ${process.env.CareerOne_API_Key}`}
 }
 
 exports.getByKeyword = function(req, res){
-  var keyword = req.params.keyword
+  const keyword = req.params.keyword
   axios.get(
     `https://api.careeronestop.org/v1/occupation/${process.env.CareerOne_UserId}/${keyword}/Y/0/100`,
     config
@@ -22,8 +22,8 @@ exports.getByKeyword = function(req, res){
 }
 
 exports.getJobDescriptionByOnetCodeAndLocation = function(req, res){
-  var onetCode = req.params.onetCode
-  var location = req.params.location
+  const onetCode = req.params.onetCode
+  const location = req.params.location
   const config = {
     headers: { Authorization: `Bearer ${process.env.CareerOne_API_Key}`}
   }
@@ -43,8 +43,8 @@ exports.getJobDescriptionByOnetCodeAndLocation = function(req, res){
 }
 
 exports.getSalariesByOccupationAndLocation = function(req, res){
-  var keyword = req.params.keyword
-  var location = req.params.location
+  const keyword = req.params.keyword
+  const location = req.params.location
   axios.get(
     `https://api.careeronestop.org/v1/comparesalaries/${process.env.CareerOne_UserId}/wageocc?keyword=${keyword}&location=${location}&sortColumns=0&sortDirections=0&sortBy=0`,
     config
@@ -60,7 +60,7 @@ exports.getSalariesByOccupationAndLocation = function(req, res){
 }
 
 exports.getToolsAndTechByOccupation = function(req, res){
-  var onetCode = req.params.onetCode
+  const onetCode = req.params.onetCode
   axios.get(
     `https://api.careeronestop.org/v1/techtool/${process.env.CareerOne_UserId}/${onetCode}`,
     config
@@ -73,4 +73,10 @@ exports.getToolsAndTechByOccupation = function(req, res){
     console.log(err)
     res.status(500).send(err)
   })
+}
+
+//PUT
+exports.saveDay = (req, res) => {
+  const summary = req.body.summary
+  const id = req.body.id
 }

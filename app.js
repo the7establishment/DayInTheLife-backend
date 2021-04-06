@@ -1,20 +1,20 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var flash = require('connect-flash');
-var passport = require('passport');
-var session = require('express-session');
-var mongoose = require('mongoose');
-var setUpPassport = require('./setup_passport');
-var dayRoutes = require('./routes/day/day.route');
-var userRoutes = require('./routes/user/user.route');
-var productRoutes = require('./routes/product/product.route');
-var jobRoutes = require('./routes/job/job.route');
-var authRoutes = require('./routes/authentication/auth.route');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
+const passport = require('passport');
+const session = require('express-session');
+const mongoose = require('mongoose');
+const setUpPassport = require('./setup_passport');
+const dayRoutes = require('./routes/day/day.route');
+const userRoutes = require('./routes/user/user.route');
+const productRoutes = require('./routes/product/product.route');
+const jobRoutes = require('./routes/job/job.route');
+const authRoutes = require('./routes/authentication/auth.route');
 
-var app = express();
+const app = express();
 const uri = "mongodb+srv://admin:" + process.env.Mongo_Admin_PW + "@dayinthelife-dev.ozz3z.mongodb.net/testdb?retryWrites=true&w=majority";
-var port = process.env.PORT || 4201;
+const port = process.env.PORT || 4201;
 //connect to the Database
 try {
   mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
