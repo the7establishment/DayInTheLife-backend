@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
 var DayModal = require('./day.model')
 
+const SERVICE_DOWN_MESSAGE = 'Service is not available at this time. Please try again later.'
+
 exports.get = async function(req, res){
   const day = await DayModal.find()
   try{
@@ -15,27 +17,28 @@ exports.post = function (req,res) {
   var body = req.body
   const day = new DayModal({
     _id: new mongoose.Types.ObjectId(),
+    userId: mongoose.Types.ObjectId(body.userId),
     // overview
-    title: body.overview.jobTitle,
-    company: body.overview.company,
-    travel: body.overview.travel,
-    physical: body.overview.physical,
-    worklife: body.overview.worklife,
-    workenv: body.overview.workenv,
-    salary: body.overview.salary,
+    title: body.jobTitle,
+    company: body.company,
+    travel: body.travel,
+    physical: body.physical,
+    worklife: body.worklife,
+    workenv: body.workenv,
+    salary: body.salary,
     // description
-    description: body.description.text
+    description: body.description
   })
   day.save()
   .then(result => {
-    console.log(`Day(s) created successfully with the following id ${result.dayId}`)
+    console.log(`Day(s) created successfully with the following id ${result._id}`)
     res.status(200).json({
-      message: `Day created successfully with ID: ${result.dayId}`,
-      createdDay: result
+      dayId: result._id
     })
   })
   .catch(err => {
     res.status(500).json({
+      message: SERVICE_DOWN_MESSAGE,
       error: err
     })
   })
