@@ -3,7 +3,7 @@ var router = express.Router()
 
 const day_controller = require('./day.controller')
 
-router.get('/', day_controller.get)
+router.get('/user/:userId', day_controller.getByUserId)
 
 router.post('/', day_controller.post)
 
