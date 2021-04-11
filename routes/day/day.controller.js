@@ -3,8 +3,8 @@ var DayModal = require('./day.model')
 
 const SERVICE_DOWN_MESSAGE = 'Service is not available at this time. Please try again later.'
 
-exports.get = async function(req, res){
-  const day = await DayModal.find()
+exports.getByUserId = async function(req, res){
+  const day = await DayModal.find({userId:req.params.userId})
   try{
     res.status(201).send(day)
     console.log(day)
