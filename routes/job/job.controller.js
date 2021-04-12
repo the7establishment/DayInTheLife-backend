@@ -16,8 +16,12 @@ exports.getByKeyword = function(req, res){
     res.status(200).send(response.data)
   })
   .catch(err => {
-    console.log(err)
-    res.status(500).send(err)
+    if(err.response.status == 404) {
+      res.status(404).send({ job: keyword })
+    } else {
+      console.log(err)
+      res.status(500).send(err)
+    }
   })
 }
 
